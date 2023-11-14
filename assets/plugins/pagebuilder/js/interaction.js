@@ -522,11 +522,16 @@
                     $textarea.get(0).id = 'rich' + ContentBlock.randomString();
 
                     if (typeof tinymce !== 'undefined') {
-                        var conf = theme != undefined ? window['config_tinymce4_' + theme] : window[ modxRTEbridge_tinymce4.default ];
-                        conf = $.extend({}, conf, options ? options : {});
+                      if(typeof modxRTEbridge_tinymce4 !== 'undefined'){
+                            var conf = theme != undefined ? window['config_tinymce4_' + theme] : window[ modxRTEbridge_tinymce4.default ];
+                            conf = $.extend({}, conf, options ? options : {});
+                            conf.selector = '#' + $textarea.attr('id');
 
-                        conf.selector = '#' + $textarea.attr('id');
-                        tinymce.init(conf);
+                        }else{
+                            if(typeof custom !== 'undefined')
+                                custom.selector = '#' + $textarea.attr('id');
+                            conf = custom;
+                        }
                     }
                 },
 
